@@ -18,7 +18,7 @@ function generatePlane() {
     obstacleIntervalId = setInterval(generateObstacol, 2000);   
 }
 
-let planeLeft = 150, planeTop = 305, boardWidth = 440, hundred = 100;
+let planeLeft = 150, planeTop = 405, boardWidth = 440, hundred = 100;
 
 function detectKey(e) {
     let planeDiv = document.querySelector(".plane");
@@ -73,11 +73,14 @@ function checkCollision(plane, obstacle) {
 }
 
 function gameOver() {
-    document.querySelector(".plane").remove();
     clearInterval(intervalId);
-    clearInterval(obstacleIntervalId);    
-    let gameOverMessage = "Game Over! Time: " + minute + ":" + secunde;
-    document.getElementById("game-over").innerHTML = gameOverMessage;
+    intervalId = null;
+    clearInterval(obstacleIntervalId); 
+    obstacleIntervalId = null; 
+    let image = document.createElement("img");
+    image.classList.add('img');
+    document.getElementById("board").appendChild(image);     
+    document.getElementById("game-over").innerHTML = "Score Time "  + minute + ":" + secunde;
 }
 
 function resetGame() {  

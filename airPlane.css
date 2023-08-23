@@ -16,9 +16,9 @@ body{
 .plane{
     position: absolute;
     left:150px;
-    top:305px;
+    top:405px;
     width: 100px;
-    height: 190px;
+    height: 90px;
     background: green;
     
 }
@@ -29,4 +29,11 @@ body{
     width: 20px;
     height: 20px;
     background-color: red;
+    
+}
+.img{
+    position: relative;
+    height: 500px;
+    width: 440px;
+    background:url(game_over.png) no-repeat;
 }
