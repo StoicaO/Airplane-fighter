@@ -1,21 +1,22 @@
 let time = 0, minute = 0, secunde = 0, intervalId = null, obstacleIntervalId = null;
 let start = document.getElementById("button1");
+let TEN = 10, SIXTY = 60, THOUSAND = 1000, twoThousand = 2000, EIGHTY = 80;
 
 function increaseTime() {
-    time += 10;
-    minute = Math.floor(time / 1000 / 60);
-    secunde = Math.floor(time / 1000) % 60;
+    time += TEN;
+    minute = Math.floor(time / THOUSAND / SIXTY);
+    secunde = Math.floor(time / THOUSAND) % SIXTY;
     document.getElementById("time").innerHTML = minute + ':' + secunde;
 }
 
 function generatePlane() { 
-    intervalId = setInterval(increaseTime, 10); 
+    intervalId = setInterval(increaseTime, TEN); 
     start.style.display = "none";
     let planeDiv = document.createElement("div");
     planeDiv.classList.add('plane');
     document.getElementById("board").appendChild(planeDiv); 
     document.onkeydown = detectKey;
-    obstacleIntervalId = setInterval(generateObstacol, 2000);   
+    obstacleIntervalId = setInterval(generateObstacol, twoThousand);   
 }
 
 let planeLeft = 150, planeTop = 405, boardWidth = 440, hundred = 100;
@@ -23,10 +24,10 @@ let planeLeft = 150, planeTop = 405, boardWidth = 440, hundred = 100;
 function detectKey(e) {
     let planeDiv = document.querySelector(".plane");
     if (e.keyCode == '37' && planeLeft > 0) {
-        planeLeft -= 10;
+        planeLeft -= TEN;
     }
     else if (e.keyCode == '39' && planeLeft < boardWidth - hundred) {
-        planeLeft += 10;
+        planeLeft += TEN;
     }
         if (planeDiv) {
         planeDiv.style.top = planeTop + "px";
@@ -37,7 +38,7 @@ function detectKey(e) {
 function generateObstacol() {
     let obstacle = document.createElement("div");
     obstacle.classList.add('obs');
-    let  randomLeft = Math.floor((Math.random() * 80) + 300) +  "px";
+    let  randomLeft = Math.floor((Math.random() * EIGHTY) + (hundred * 3)) +  "px";
     obstacle.style.left = randomLeft + "px";
     document.getElementById("board").appendChild(obstacle);
     let moveStoneInterval = setInterval(function() {
@@ -47,7 +48,7 @@ function generateObstacol() {
 
 function moveStone(obstacle, interval) {
     let positionObs = obstacle.getBoundingClientRect();    
-    if (positionObs.top >= 0 && positionObs.top < 500) {
+    if (positionObs.top >= 0 && positionObs.top < (THOUSAND / 2)) {
         let newPosition = positionObs.top + 1;
         obstacle.style.top = newPosition + "px";
         if (checkCollision(document.querySelector(".plane"), obstacle)) {
