@@ -1,12 +1,13 @@
-let time = 0, minute = 0, secunde = 0, intervalId = null, obstacleIntervalId = null;
+
+let time = 0, minutes = 0, seconds = 0, intervalId = null, obstacleIntervalId = null;
 let start = document.getElementById("button1");
 let TEN = 10, SIXTY = 60, THOUSAND = 1000, twoThousand = 2000, EIGHTY = 80;
 
 function increaseTime() {
     time += TEN;
-    minute = Math.floor(time / THOUSAND / SIXTY);
+    minutes = Math.floor(time / THOUSAND / SIXTY);
     secunde = Math.floor(time / THOUSAND) % SIXTY;
-    document.getElementById("time").innerHTML = minute + ':' + secunde;
+    document.getElementById("time").innerHTML = minutes + ':' + seconds;
 }
 
 function generatePlane() { 
@@ -16,7 +17,7 @@ function generatePlane() {
     planeDiv.classList.add('plane');
     document.getElementById("board").appendChild(planeDiv); 
     document.onkeydown = detectKey;
-    obstacleIntervalId = setInterval(generateObstacol, twoThousand);   
+    obstacleIntervalId = setInterval(generateObstacole, twoThousand);   
 }
 
 let planeLeft = 150, planeTop = 405, boardWidth = 440, hundred = 100;
@@ -35,7 +36,8 @@ function detectKey(e) {
     }
 }
 
-function generateObstacol() {
+let avoidedObstacle = 0;
+function generateObstacole() {
     let obstacle = document.createElement("div");
     obstacle.classList.add('obs');
     let  randomLeft = Math.floor((Math.random() * EIGHTY) + (hundred * 3)) +  "px";
@@ -47,7 +49,7 @@ function generateObstacol() {
 }
 
 function moveStone(obstacle, interval) {
-    let positionObs = obstacle.getBoundingClientRect();    
+    let positionObs = obstacle.getBoundingClientRect();  
     if (positionObs.top >= 0 && positionObs.top < (THOUSAND / 2)) {
         let newPosition = positionObs.top + 1;
         obstacle.style.top = newPosition + "px";
@@ -56,7 +58,11 @@ function moveStone(obstacle, interval) {
             obstacle.remove();
             gameOver();
             return; 
+        } console.log(obstacle.style.top);
+         if (obstacle.style.top > (400 + "px") && obstacle.style.top <= (500+ "px")) {        
+            ++avoidedObstacle;
         }
+        
     } else {
         obstacle.style.top = "0px";
     }   
@@ -81,9 +87,11 @@ function gameOver() {
     let image = document.createElement("img");
     image.classList.add('img');
     document.getElementById("board").appendChild(image);     
-    document.getElementById("game-over").innerHTML = "Score Time "  + minute + ":" + secunde;
+    document.getElementById("game-over").innerHTML = "Avoided Obstacle " + avoidedObstacle ;
 }
 
 function resetGame() {  
     location.reload();
 }
+
+
