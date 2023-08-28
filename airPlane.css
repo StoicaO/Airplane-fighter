@@ -10,27 +10,35 @@ body{
     background:url(imag2.jpg);
     border: 2px solid #000000;
     margin: 20px auto;
-    overflow: hidden;
+  
 }
 
 .plane{
     position: absolute;
     left:150px;
-    top:405px;
-    width: 100px;
-    height: 90px;
+    top:415px;
+    width: 50px;
+    height: 80px;
     background: green;
     
 }
 
+.bullet{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: yellowgreen; 
+
+}
+
 .obs{
-    position: relative;
-    display: inline-block;
+    position: absolute;
+    top: 0px;
     width: 20px;
     height: 20px;
-    background-color: red;
-    
+    background-color: red;    
 }
+
 .img{
     position: relative;
     height: 500px;
